@@ -1,9 +1,11 @@
 package main
 
 import (
-	"github.com/javadh75/dyane/cmd"
+	"fmt"
 )
 
 func main() {
-	cmd.Execute()
+	fmt.Println("Re Day")
+	fmt.Println("From SenateForEver")
+	fmt.Println("With Love")
 }
