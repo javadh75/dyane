@@ -5,6 +5,8 @@ on:
     branches: [ master network ]
   pull_request:
     branches: [ master network ]
+    
+  workflow_dispatch:
 
 jobs:
 
