@@ -7,7 +7,7 @@ import (
 	"log"
 	"net"
 
-	nl "github.com/javadh75/dyane/device/modules/network"
+	link "github.com/javadh75/dyane/device/modules/network/link"
 	pb "github.com/javadh75/dyane/protoc"
 	"google.golang.org/grpc"
 )
@@ -42,25 +42,33 @@ func Run(args []string) {
 }
 
 func GetLinkCmd(dev string) {
-	link, err := nl.GetLink(dev)
+	nllink, err := link.GetLinkByName(dev)
 	if err != nil {
 		log.Println("Error:", err)
 	}
-	linkJson, err := json.MarshalIndent(link, "", "  ")
+	dlink := link.DyaneLink{}
+	dlink.Set(nllink)
+	linkJson, err := json.MarshalIndent(dlink, "", "  ")
 	if err != nil {
 		log.Println("Error:", err)
 	}
-	fmt.Printf(string(linkJson))
+	fmt.Print(string(linkJson))
 }
 
 func GetAllLinksCmd() {
-	links, err := nl.GetAllLinks()
+	nllinks, err := link.GetAllLinks()
 	if err != nil {
 		log.Println("Error:", err)
 	}
-	linksJson, err := json.MarshalIndent(links, "", "  ")
+	dlinks := []link.DyaneLink{}
+	for _, nllink := range nllinks {
+		dlink := link.DyaneLink{}
+		dlink.Set(nllink)
+		dlinks = append(dlinks, dlink)
+	}
+	linksJson, err := json.MarshalIndent(dlinks, "", "  ")
 	if err != nil {
 		log.Println("Error:", err)
 	}
-	fmt.Printf(string(linksJson))
+	fmt.Print(string(linksJson))
 }

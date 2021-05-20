@@ -1,4 +1,4 @@
-package vlan
+package link
 
 import (
 	"log"
@@ -7,9 +7,8 @@ import (
 )
 
 func DelByName(name string) (bool, error) {
-	link, err := netlink.LinkByName(name)
+	link, err := GetLinkByName(name)
 	if err != nil {
-		log.Printf("Error in getting link in DelByName(%s): %s", name, err)
 		return false, nil
 	}
 	if err = netlink.LinkDel(link); err != nil {
@@ -20,9 +19,8 @@ func DelByName(name string) (bool, error) {
 }
 
 func DelByIndex(index int) (bool, error) {
-	link, err := netlink.LinkByIndex(index)
+	link, err := GetLinkByIndex(index)
 	if err != nil {
-		log.Printf("Error in getting link in DelByIndex(%d): %s", index, err)
 		return false, nil
 	}
 	if err = netlink.LinkDel(link); err != nil {
@@ -30,4 +28,31 @@ func DelByIndex(index int) (bool, error) {
 		return false, nil
 	}
 	return true, nil
+}
+
+func GetLinkByName(name string) (netlink.Link, error) {
+	link, err := netlink.LinkByName(name)
+	if err != nil {
+		log.Printf("Error in getting link in GetLinkByName(%s): %s", name, err)
+		return nil, err
+	}
+	return link, nil
+}
+
+func GetLinkByIndex(index int) (netlink.Link, error) {
+	link, err := netlink.LinkByIndex(index)
+	if err != nil {
+		log.Printf("Error in getting link in GetLinkByIndex(%d): %s", index, err)
+		return nil, err
+	}
+	return link, nil
+}
+
+func GetAllLinks() ([]netlink.Link, error) {
+	links, err := netlink.LinkList()
+	if err != nil {
+		log.Printf("Error in getting links in GetAllLinks(): %s", err)
+		return nil, err
+	}
+	return links, nil
 }

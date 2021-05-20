@@ -1,4 +1,4 @@
-package vlan
+package link
 
 import (
 	"log"
