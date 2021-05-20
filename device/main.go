@@ -42,7 +42,7 @@ func Run(args []string) {
 }
 
 func GetLinkCmd(dev string) {
-	nllink, err := link.GetLinkByName(dev)
+	nllink, err := link.GetLink(dev)
 	if err != nil {
 		log.Println("Error:", err)
 	}
