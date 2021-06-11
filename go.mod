@@ -3,6 +3,7 @@ module github.com/javadh75/dyane
 go 1.16
 
 require (
+	github.com/javadh75/systemd-config v0.0.0-20210606144731-33f88dddd52b // indirect
 	github.com/spf13/cobra v1.1.3 // indirect
 	github.com/spf13/viper v1.7.1 // indirect
 	github.com/vishvananda/netlink v1.1.0 // indirect

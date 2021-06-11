@@ -31,6 +31,14 @@ var linkShowAllCmd = &cobra.Command{
 	},
 }
 
+var linkInitCurrentConfigsCmd = &cobra.Command{
+	Use:   "init",
+	Short: "Initialize current config of system",
+	Run: func(cmd *cobra.Command, args []string) {
+		device.InitCurrentConfigsCMD()
+	},
+}
+
 var linkCmd = &cobra.Command{
 	Use:   "link",
 	Short: "Link utilities",
@@ -50,6 +58,7 @@ func init() {
 	linkShowAllCmd.AddCommand(devCmd)
 
 	linkCmd.AddCommand(linkShowAllCmd)
+	linkCmd.AddCommand(linkInitCurrentConfigsCmd)
 
 	deviceCmd.AddCommand(linkCmd)
 }

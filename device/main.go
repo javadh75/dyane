@@ -7,7 +7,7 @@ import (
 	"log"
 	"net"
 
-	link "github.com/javadh75/dyane/device/modules/network/link"
+	"github.com/javadh75/dyane/device/modules/network"
 	pb "github.com/javadh75/dyane/protoc"
 	"google.golang.org/grpc"
 )
@@ -42,11 +42,11 @@ func Run(args []string) {
 }
 
 func GetLinkCmd(dev string) {
-	nllink, err := link.GetLink(dev)
+	nllink, err := network.GetLink(dev)
 	if err != nil {
 		log.Println("Error:", err)
 	}
-	dlink := link.DyaneLink{}
+	dlink := network.DyaneLink{}
 	dlink.Set(nllink)
 	linkJson, err := json.MarshalIndent(dlink, "", "  ")
 	if err != nil {
@@ -56,13 +56,13 @@ func GetLinkCmd(dev string) {
 }
 
 func GetAllLinksCmd() {
-	nllinks, err := link.GetAllLinks()
+	nllinks, err := network.GetAllLinks()
 	if err != nil {
 		log.Println("Error:", err)
 	}
-	dlinks := []link.DyaneLink{}
+	dlinks := []network.DyaneLink{}
 	for _, nllink := range nllinks {
-		dlink := link.DyaneLink{}
+		dlink := network.DyaneLink{}
 		dlink.Set(nllink)
 		dlinks = append(dlinks, dlink)
 	}
@@ -71,4 +71,8 @@ func GetAllLinksCmd() {
 		log.Println("Error:", err)
 	}
 	fmt.Print(string(linksJson))
+}
+
+func InitCurrentConfigsCMD() {
+	network.InitCurrentConfigs()
 }

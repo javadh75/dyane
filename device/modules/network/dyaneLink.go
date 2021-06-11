@@ -1,4 +1,4 @@
-package link
+package network
 
 import "github.com/vishvananda/netlink"
 

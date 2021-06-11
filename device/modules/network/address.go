@@ -1,14 +1,13 @@
-package address
+package network
 
 import (
 	"log"
 
-	link "github.com/javadh75/dyane/device/modules/network/link"
 	"github.com/vishvananda/netlink"
 )
 
 func AddIPAddress(linkName string, IP string) error {
-	nllink, err := link.GetLink(linkName)
+	nllink, err := GetLink(linkName)
 	if err != nil {
 		return err
 	}
@@ -32,7 +31,7 @@ func ParseIPAddress(IP string) (*netlink.Addr, error) {
 }
 
 func DelIPAddress(linkName string, IP string) error {
-	nllink, err := link.GetLink(linkName)
+	nllink, err := GetLink(linkName)
 	if err != nil {
 		return err
 	}
