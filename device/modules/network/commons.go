@@ -22,12 +22,12 @@ func NetworkConfigWriter(r io.Reader, name string) (bool, error) {
 func ConfigWriter(r io.Reader, filePath string) (bool, error) {
 	config, err := ioutil.ReadAll(r)
 	if err != nil {
-		fmt.Printf("Unable to convert network config to []byte: %+v\n", r)
+		fmt.Printf("Unable to convert systemd config to []byte: %+v\n", r)
 		return false, err
 	}
 
-	if err = ioutil.WriteFile(filePath, config, 0644); err != nil {
-		fmt.Printf("Unable to write network config to file %s: %s\n", filePath, string(config))
+	if err = os.WriteFile(filePath, config, 0644); err != nil {
+		fmt.Printf("Unable to write systemd config to file %s: %s\n", filePath, string(config))
 		return false, err
 	}
 	return true, nil

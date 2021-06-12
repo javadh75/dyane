@@ -18,7 +18,7 @@ func DelLink(name string) (bool, error) {
 		return false, nil
 	}
 	if err = netlink.LinkDel(link); err != nil {
-		log.Printf("Error in deleting link in DelLink(%s): %s", name, err)
+		log.Printf("Error in deleting link in DelLink(%s): %s\n", name, err)
 		return false, nil
 	}
 	return true, nil
@@ -27,7 +27,7 @@ func DelLink(name string) (bool, error) {
 func GetLink(name string) (netlink.Link, error) {
 	link, err := netlink.LinkByName(name)
 	if err != nil {
-		log.Printf("Error in getting link in GetLink(%s): %s", name, err)
+		log.Printf("Error in getting link in GetLink(%s): %s\n", name, err)
 	}
 	return link, err
 }
@@ -35,7 +35,7 @@ func GetLink(name string) (netlink.Link, error) {
 func GetAllLinks() ([]netlink.Link, error) {
 	links, err := netlink.LinkList()
 	if err != nil {
-		log.Printf("Error in getting links in GetAllLinks(): %s", err)
+		log.Printf("Error in getting links in GetAllLinks(): %s\n", err)
 	}
 	return links, err
 }
@@ -43,7 +43,7 @@ func GetAllLinks() ([]netlink.Link, error) {
 func InitCurrentConfigs() error {
 	links, err := GetAllLinks()
 	if err != nil {
-		log.Printf("Error in getting links for initializing current configs")
+		log.Printf("Error in getting links for initializing current configs\n")
 		return err
 	}
 	for _, link := range links {
