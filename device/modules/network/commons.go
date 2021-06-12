@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"os"
 	"path/filepath"
+	"strings"
 )
 
 const (
@@ -29,4 +31,14 @@ func ConfigWriter(r io.Reader, filePath string) (bool, error) {
 		return false, err
 	}
 	return true, nil
+}
+
+func ConfigReader(filePath string) (io.Reader, error) {
+	f, err := os.ReadFile(filePath)
+	if err != nil {
+		fmt.Printf("Unable to read config %s: %s\n", filePath, err)
+		return nil, err
+	}
+	s := string(f)
+	return strings.NewReader(s), nil
 }
